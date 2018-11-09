@@ -20,39 +20,64 @@ public class Main {
 			
 			try {
                 //TRAZ LISTA COM TODAS AS TAREFAS
-			    //Call<List<Tarefa>> lista = api.getTarefa();
-                //Response<List<Tarefa>> responseLista = lista.execute();
-                //List<Tarefa> tarefasLista = responseLista.body();
-                //System.out.println(tarefasLista);
+			    Call<List<Tarefa>> lista = api.getAllTarefa();
+                Response<List<Tarefa>> responseLista = lista.execute();
+                List<Tarefa> tarefasLista = responseLista.body();
+                System.out.println("Tarefas");
+                System.out.println(tarefasLista);
 
 
                 //TRAZ TAREFA DO ID ESPECIFICADO
-                //Call<Tarefa> retornaUnico = api.getTarefa(65);
-                //Response<Tarefa> responseUnico = retornaUnico.execute();
-                //Tarefa tarefasUnico = responseUnico.body();
-                //System.out.println(tarefasUnico);
+                int id = 1322;
+                Call<Tarefa> retornaUnico = api.getOneTarefa(id);
+                Response<Tarefa> responseUnico = retornaUnico.execute();
+                Tarefa tarefasUnico = responseUnico.body();
+                System.out.println("Tarefa " + id + "\n");
+                System.out.println(tarefasUnico);
 
 
                 //CRIAR UMA NOVA TAREFA
-                //Tarefa tarefaCria = new Tarefa();
-                //tarefaCria.setDescricao("Teste Cria");
-                //tarefaCria.setEstado(false);
-                //Call<Tarefa> criaTarefa = api.setTarefa(tarefa);
-                //Response<Tarefa> responseCria = criaTarefa.execute();
-                //Tarefa tarefasCria = responseCria.body();
-                //System.out.println(tarefasCria);
+                Tarefa tarefaCria = new Tarefa();
+                tarefaCria.setDescricao("Teste");
+                Call<Tarefa> criaTarefa = api.setTarefa(tarefaCria);
+                Response<Tarefa> responseCria = criaTarefa.execute();
+                Tarefa tarefasCria = responseCria.body();
+                responseCria.isSuccessful();
+                System.out.println("Tarefa criada");
+                if (responseCria.isSuccessful()){
+                    Call<Tarefa> retornaId = api.getOneTarefa(tarefasCria.getId());
+                    Response<Tarefa> responseId = retornaId.execute();
+                    Tarefa tarefasId = responseId.body();
+                    System.out.println(tarefasId);
+                }
 
 
-                //EDITAR UMA NOVA TAREFA
+
+                //EDITAR UMA TAREFA
                 Tarefa tarefaEdita = new Tarefa();
-                tarefaEdita.setId(88);
-                tarefaEdita.setDescricao("Teste Cria Update");
+                tarefaEdita.setId(1347);
+                tarefaEdita.setDescricao("Update");
                 tarefaEdita.setEstado(true);
-                Call<Tarefa> editaTarefa = api.getTarefa(tarefaEdita.getId(), tarefaEdita.getDescricao(), tarefaEdita.getEstado());
-                Response<Tarefa> responseEdita = editaTarefa.execute();
-                Tarefa tarefasEdita = responseEdita.body();
-                System.out.println(tarefasEdita);
+                Call<Void> editaTarefa = api.updateTarefa(tarefaEdita.getId(), tarefaEdita);
+                Response responseEdita = editaTarefa.execute();
+                responseEdita.isSuccessful();
+                if (responseEdita.isSuccessful()) {
+                    System.out.println("Tarefa editada");
+                    Call<Tarefa> retornaTarefaEditada = api.getOneTarefa(tarefaEdita.getId());
+                    Response<Tarefa> responseTarefaEditada = retornaTarefaEditada.execute();
+                    Tarefa tarefasEditada = responseTarefaEditada.body();
+                    System.out.println(tarefasEditada);
+                }
 
+
+				//EXCLUIR UMA TAREFA
+                int id2 = 1334;
+                Call<Void> deletaTarefa = api.deleteTarefa(id2);
+                Response responseDeleta = deletaTarefa.execute();
+                responseDeleta.isSuccessful();
+                if (responseDeleta.isSuccessful()) {
+                    System.out.println("Tarefa " + id2 + " excluída");
+                }
 
 
 			}catch(Exception e) {

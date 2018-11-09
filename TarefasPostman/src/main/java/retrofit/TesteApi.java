@@ -1,6 +1,7 @@
 package retrofit;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.*;
 
 import java.util.List;
@@ -9,11 +10,11 @@ public interface TesteApi {
 
 	@Headers("Student: 1144002241")
 	@GET("api/tasks")
-	Call<List<Tarefa>> getTarefa();
+	Call<List<Tarefa>> getAllTarefa();
 
     @Headers("Student: 1144002241")
     @GET("api/tasks/{id}")
-    Call<Tarefa> getTarefa(@Path("id") int id);
+    Call<Tarefa> getOneTarefa(@Path("id") int id);
 
     @Headers("Student: 1144002241")
     @POST("api/tasks")
@@ -21,5 +22,9 @@ public interface TesteApi {
 
     @Headers("Student: 1144002241")
     @PUT("api/tasks/{id}")
-    Call<Tarefa> SetTarefa(@Path("id") int id, @Field("description") String description, @Field("done") Boolean done);
+    Call<Void> updateTarefa(@Path("id") int id, @Body Tarefa description);
+
+    @Headers("Student: 1144002241")
+    @DELETE("api/tasks/{id}")
+    Call<Void> deleteTarefa(@Path("id") int id);
 }

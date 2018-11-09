@@ -6,12 +6,11 @@ public class Tarefa {
 	private String description;
 	private Boolean done;
 	
-	/*private Tarefa time;
-	private <List> lista;*/
-	
 	@Override
 	public String toString() {
-		return "Tarefa [Id=" + id + ", Descrição=" + description + ", Estado=" + done + "]";
+		return "Tarefa: " + id + "\n" +
+				"Descrição: " + description + "\n" +
+				"Estado: " + done + "\n\n";
 	}
 
 	public int getId() {
