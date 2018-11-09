@@ -20,7 +20,7 @@ public class Main {
 			
 			try {
                 //TRAZ LISTA COM TODAS AS TAREFAS
-			    Call<List<Tarefa>> lista = api.getAllTarefa();
+	    	Call<List<Tarefa>> lista = api.getAllTarefa();
                 Response<List<Tarefa>> responseLista = lista.execute();
                 List<Tarefa> tarefasLista = responseLista.body();
                 System.out.println("Tarefas");
@@ -70,7 +70,7 @@ public class Main {
                 }
 
 
-				//EXCLUIR UMA TAREFA
+		//EXCLUIR UMA TAREFA
                 int id2 = 1334;
                 Call<Void> deletaTarefa = api.deleteTarefa(id2);
                 Response responseDeleta = deletaTarefa.execute();
